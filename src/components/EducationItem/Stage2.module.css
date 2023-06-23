@@ -1,0 +1,23 @@
+.education {
+  width: 95%;
+  margin: auto;
+}
+
+.education input {
+  width: 100%;
+}
+.educations__controls {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.button {
+  left: 50px;
+  background: #fff; 
+  border-radius: 25px;
+  color: #038477;
+}
+.button:hover{
+  color: #fff !important;
+  background-color: #038477 !important;
+}

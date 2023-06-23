@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+.confirm {
+    box-sizing: border-box;
+    width: 150px;
+    height: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background: #f2f6f6;
+    border-radius: 25px;
+  }
+  .confirm label{ 
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px; 
+    text-align: right;
+
+  }
+  .confirm:focus {
+    background-color: #038477;
+  }
+  .confirm input {
+    width: 10px;
+    height: 10px;
+    padding: 5px; 
+    border-radius:50%;
+  } 

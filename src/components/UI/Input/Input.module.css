@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+.education__name {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+.education__name label { 
+  padding: 10px;
+font-family: 'Inter';
+font-size: 16px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+.education__name input{
+  width: 235px;
+  height: 36px;
+  border-radius: 25px;
+  background: #f2f6f6;
+  border: none;
+  padding: 0 10px;
+  outline: none;
+}
+.education__name input:hover{
+  outline: 2px solid #ccc;
+
+}
+
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"]:hover::-webkit-inner-spin-button {
+  display: none;
+}
