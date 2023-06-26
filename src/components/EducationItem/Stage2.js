@@ -32,7 +32,7 @@ const Stage2 = (props) => {
   const master = location.state.isMaster;
   const phd = location.state.isPHD;
 
-  console.log(profession, bachelor, master, phd);
+  // console.log(profession, bachelor, master, phd);
   const submitHandler = (e) => {
     e.preventDefault();
     navigate("/stage3");
