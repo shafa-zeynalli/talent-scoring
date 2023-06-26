@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-.education__name {
+.input {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
 }
-.education__name label { 
+label { 
   padding: 10px;
 font-family: 'Inter';
 font-size: 16px;
@@ -14,7 +14,7 @@ letter-spacing: 0em;
 text-align: left;
 
 }
-.education__name input{
+ input{
   width: 235px;
   height: 36px;
   border-radius: 25px;
@@ -23,7 +23,7 @@ text-align: left;
   padding: 0 10px;
   outline: none;
 }
-.education__name input:hover{
+ input:hover{
   outline: 2px solid #ccc;
 
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate, } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
 import classes from './Stage1.module.css';
 import Card from '../UI/Card/Card';
 import Radio from '../UI/Radio/Radio';
@@ -8,18 +7,31 @@ import Input from '../UI/Input/Input';
 import Select from '../UI/Select/Select';
 import Button from '../UI/Button/Button';
 import ChartBar from '../Chartbar';
+import {updateSelectValue} from '../../store/action';
+import { useDispatch } from 'react-redux';
+
+
 
 const Stage1 = (props) => {
     const [enteredName, setEnteredName] = useState('');
     const [enteredLastName, setEnteredLastName] = useState('');
-    const [enteredLevel, setEnteredLevel] = useState('');
-    const [enteredEducation, setEnteredEducation] = useState('');
-    const [enteredEmployment, setEnteredEmployment] = useState('');
 
-    const [topping, setTopping] = useState(null);
+    const [selectValues, setSelectValues] = useState({
+        select1: '',
+        select2: '',
+        select3: '',
+        confirm: ''
+      });
 
+
+      const handleSelectChange = (e) => {
+        const { name, value } = e.target;
+        setSelectValues((prevState) => ({ ...prevState, [name]: value }));
+      };
+
+  
     const navigate = useNavigate();
-    // const history = useHistory();
+    const dispatch = useDispatch();
 
     const changeHandlerName = (event) => {
         setEnteredName(event.target.value);
@@ -27,21 +39,6 @@ const Stage1 = (props) => {
     const changeHandlerLastName = (event) => {
         setEnteredLastName(event.target.value);
 
-    };
-    const changeHandlerEmployment = (event) => {
-        setEnteredEmployment(event.target.value);
-
-    };
-    const changeHandlerEducation = (event) => {
-        setEnteredEducation(event.target.value);
-
-    };
-    const changeHandlerLevel = (event) => {
-        setEnteredLevel(event.target.value);
-    };
-
-    const onOptionChange = (e) => {
-        setTopping(e.target.value);
     };
 
     const optionsEmployment = [
@@ -67,39 +64,22 @@ const Stage1 = (props) => {
         {value: "herikisi", label: 'Təhsil alıram və çalışıram'},
     ]
 
-    const employment = topping === 'no' ? optionsEmployment : optionsEmployment2 ;
+    const employment = selectValues.confirm === 'no' ? optionsEmployment : optionsEmployment2 ;
     const item = {
-        isEducation : enteredEducation === 'orta',
-        isProfession : enteredEducation === 'peshe',
-        isBachelors: enteredEducation === 'bakalavr',
-        isMaster: enteredEducation === 'magistratura',
-        isDoctoral: enteredEducation === 'phd',
+        isEducation : selectValues.select2 === 'orta',
+        isProfession : selectValues.select2 === 'peshe',
+        isBachelors: selectValues.select2 === 'bakalavr',
+        isMaster: selectValues.select2 === 'magistratura',
+        isDoctoral: selectValues.select2 === 'phd',
     };
-    // console.log(item.isEducation); 
-    console.log( enteredEducation);
     const submitHandler = (event) => {
         event.preventDefault();
-
-        // const educationData = {
-        //     enteredName,
-        //     enteredLastName,
-        //     enteredEmployment,
-        //     enteredEducation,
-        //     enteredLevel
-        // };
-        // console.log(educationData);
-
-        // setEnteredEducation('');
-        // setEnteredEmloyment('');
-        // setEnteredLastName('');
-        // setEnteredLevel('');
-        // setEnteredName('');
-
-       { (item.isEducation  || enteredEducation === '') && navigate('/stage3')};
-       { !item.isEducation && navigate('/stage2', {state:{id:1,isPeshe: item.isProfession, isBachelor: item.isBachelors, isMaster: item.isMaster, isPHD: item.isDoctoral}})};
+        // console.log(selectValues)
         
-    //    history.push('/stage2');
-        // props.isItemSelect(enteredEducation);
+       { (item.isEducation  || selectValues.select2 === '') && navigate('/stage3')};
+       { !item.isEducation && navigate('/stage2', {state:{id:1,isPeshe: item.isProfession, isBachelor: item.isBachelors, isMaster: item.isMaster, isPHD: item.isDoctoral}})};
+       console.log(dispatch(updateSelectValue(selectValues)))
+       dispatch(updateSelectValue(selectValues));
     }
 
     return (
@@ -126,47 +106,50 @@ const Stage1 = (props) => {
                         <label>İş təcrübəniz varmı?*</label>
                         <div className={classes.education__control_Name}>
                             <Radio
-                                name="topping"
+                                name="confirm"
                                 value="yes"
                                 id="beli"
                                 label= 'Bəli'
-                                confirm={topping === 'yes'}
-                                changeHandlerRadio = {onOptionChange}
-                                style1={{ color: topping === 'yes' ? '#038477' : '#444' }}
-                                style2={{ backgroundColor: topping === 'yes' ? '#038477' : '#f2f6f6', appearance: topping === 'yes' ? 'none' : '' }}
+                                confirm={selectValues.confirm === 'yes'}
+                                changeHandlerRadio = {handleSelectChange}
+                                style1={{ color: selectValues.confirm === 'yes' ? '#038477' : '#444' }}
+                                style2={{ backgroundColor: selectValues.confirm === 'yes' ? '#038477' : '#f2f6f6', appearance: selectValues.confirm === 'yes' ? 'none' : '' }}
                             />
                             <Radio
-                                name="topping"
+                                name="confirm"
                                 value="no"
                                 id="xeyr"
                                 label='Xeyr'
-                                confirm={topping === 'no'}
-                                changeHandlerRadio = {onOptionChange}
-                                style1={{ color: topping === topping === 'no' ? '#038477' : '#444'  }}
-                                style2={{ backgroundColor: topping === 'yes' ? '#f2f6f6 ' : '#038477', appearance: topping === 'no' ? 'none' : '' }}
+                                confirm={selectValues.confirm === 'no'}
+                                changeHandlerRadio = {handleSelectChange}
+                                style1={{ color:  selectValues.confirm === 'no' ? '#038477' : '#444'  }}
+                                style2={{ backgroundColor: selectValues.confirm === 'yes' ? '#f2f6f6 ' : '#038477', appearance: selectValues.confirm === 'no' ? 'none' : '' }}
                             />
                            
                         </div>
                     </div>
-                    {topping && 
+                    {selectValues.confirm  && 
                     <div>
                         <Select
                             label="Hazırda məşğuliyyətiniz:"
-                            value={enteredEmployment}
-                            changeHandlerSelect={changeHandlerEmployment}
+                            value={selectValues.select1}
+                            changeHandlerSelect={handleSelectChange}
                             options={employment} 
+                            name='select1'
                         />
                         <Select
                             label="Təhsiliniz:"
-                            value={enteredEducation}
-                            changeHandlerSelect={changeHandlerEducation}
+                            value={selectValues.select2}
+                            changeHandlerSelect={handleSelectChange}
                             options={ optionsEducation }
+                            name='select2'
                         />
                        <Select
                             label="Aşağıdakılardan hansı sizə uyğundur?"
-                            value={enteredLevel}
-                            changeHandlerSelect={changeHandlerLevel}
+                            value={selectValues.select3}
+                            changeHandlerSelect={handleSelectChange}
                             options={optionsLevel}
+                            name='select3'
                         />
                     </div>
                     }

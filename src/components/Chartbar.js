@@ -3,7 +3,6 @@ import React from 'react';
 const ChartBar = ({ currentPageIndex, maxPageIndex }) => {
   const progressPercentage = (currentPageIndex / maxPageIndex) * 100;
 
-  // CSS or library-specific code to style the chart bar and fill level
   const chartBarStyles = {
     width: '100%',
     height: '22px',

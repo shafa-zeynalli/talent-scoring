@@ -5,7 +5,7 @@ const Input = (props) => {
     const { value, type, max, min, changeHandlerText, label, placeholder } = props;
 
     return (
-        <div className={classes.education__name}>
+        <div className={classes.input}>
             <label>{label}*</label>
             <input
                 type={type}

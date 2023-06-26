@@ -6,7 +6,7 @@ import Input from "../UI/Input/Input";
 import Card from "../UI/Card/Card";
 import classes from "./Stage2.module.css";
 import ChartBar from "../Chartbar";
- 
+
 const Stage2 = (props) => {
   const [enteredProfession, setEnteredProfession] = useState("");
   const [enteredBachelors, setEnteredBachelors] = useState("");
@@ -56,33 +56,31 @@ const Stage2 = (props) => {
                   changeHandlerText={changeHandlerProfession}
                 />
               )}
-              {!phd || (
-                <>
-                  {master || (
-                    <>
-                      {bachelor || (
-                        <Input
-                          value={enteredBachelors}
-                          type="number"
-                          max={'700'}
-                          min={'0'}
-                          placeholder="0-700"
-                          label="Bakalavr pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                          changeHandlerText={changeHandlerBachelors}
-                        />
-                      )}
-                      <Input
-                        value={enteredMaster}
-                        type="number"
-                        max={'100'}
-                        min={'0'}
-                        placeholder="0-100"
-                        label="Magistratura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                        changeHandlerText={changeHandlerMaster}
-                      />
-                    </>
-                  )}
+              {(phd || master || bachelor) &&
+                (
                   <Input
+                    value={enteredBachelors}
+                    type="number"
+                    max={'700'}
+                    min={'0'}
+                    placeholder="0-700"
+                    label="Bakalavr pilləsi üzrə TQDK qəbul balınızı qeyd edin."
+                    changeHandlerText={changeHandlerBachelors}
+                  />
+                )}
+                {(phd || master) && 
+                (
+                  <Input
+                  value={enteredMaster}
+                  type="number"
+                  max={'100'}
+                  min={'0'}
+                  placeholder="0-100"
+                  label="Magistratura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
+                  changeHandlerText={changeHandlerMaster}
+                />
+                )}
+                {phd &&  <Input
                     value={enteredDoctoral}
                     type="number"
                     placeholder="0-8"
@@ -90,39 +88,7 @@ const Stage2 = (props) => {
                     min={'0'}
                     label="Doktorantura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
                     changeHandlerText={changeHandlerDoctoral}
-                  />
-                </>
-              )}
-              {bachelor && (
-                    <Input
-                      value={enteredBachelors}
-                      type="number"
-                      placeholder="0-700"
-                      label="Bakalavr pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                      changeHandlerText={changeHandlerBachelors}
-                    />
-                  )}
-
-              {master && (
-                <>
-                  {!bachelor && (
-                    <Input
-                      value={enteredBachelors}
-                      type="number"
-                      placeholder="0-700"
-                      label="Bakalavr pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                      changeHandlerText={changeHandlerBachelors}
-                    />
-                  )}
-                  <Input
-                    value={enteredMaster}
-                    type="number"
-                    placeholder="0-100"
-                    label="Magistratura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                    changeHandlerText={changeHandlerMaster}
-                  />
-                </>
-              )}
+                  />}
             </div>
 
             <div className={classes.buttons}>
