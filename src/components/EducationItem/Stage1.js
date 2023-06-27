@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, } from 'react-router-dom';
 import { useSelector } from 'react-redux'
+import { updateSelectValue } from '../../store/action';
+import { useDispatch } from 'react-redux';
 import classes from './Stage1.module.css';
 import Card from '../UI/Card/Card';
 import Radio from '../UI/Radio/Radio';
@@ -8,18 +10,17 @@ import Input from '../UI/Input/Input';
 import Select from '../UI/Select/Select';
 import Button from '../UI/Button/Button';
 import ChartBar from '../Chartbar';
-import { updateSelectValue } from '../../store/action';
-import { useDispatch } from 'react-redux';
-
 
 
 const Stage1 = (props) => {
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredLastName, setEnteredLastName] = useState('');
+    // const [enteredName, setEnteredName] = useState('');
+    // const [enteredLastName, setEnteredLastName] = useState('');
     const todo = useSelector((state)=>state.selectValues);
 
 
     const [selectValues, setSelectValues] = useState({
+        name1: todo.name1 === '' ? '' : todo.name1,
+        lname: todo.lname === '' ? '' : todo.lname,
         select1: todo.select1 === '' ? '' : todo.select1,
         select2: todo.select2 === '' ? '' : todo.select2,
         select3: todo.select3 === '' ? '' : todo.select3,
@@ -29,11 +30,12 @@ const Stage1 = (props) => {
 
     const handleSelectChange = (e) => {
         const { name, value } = e;
-        console.log(e)
+        // console.log(e)
         setSelectValues((prevState) => ({ ...prevState, [name]: value }));
     };
     const handleChangeConfirm = (e) =>{
         const { name, value } = e.target;
+        console.log(name)
         setSelectValues((prevState) => ({ ...prevState, [name]: value }));
     }
 
@@ -43,13 +45,13 @@ const Stage1 = (props) => {
 
     console.log(todo.select1 + 'select1');
 
-    const changeHandlerName = (event) => {
-        setEnteredName(event.target.value);
-    };
-    const changeHandlerLastName = (event) => {
-        setEnteredLastName(event.target.value);
+    // const changeHandlerName = (event) => {
+    //     setEnteredName(event.target.value);
+    // };
+    // const changeHandlerLastName = (event) => {
+    //     setEnteredLastName(event.target.value);
 
-    };
+    // };
 
     const optionsEmployment = [
         { value: "tehsilli", label: 'Təhsil alıram', name: 'select1'},
@@ -87,7 +89,7 @@ const Stage1 = (props) => {
         // console.log(selectValues)
 
         { (item.isEducation || selectValues.select2 === '') && navigate('/stage3') };
-        { !item.isEducation && navigate('/stage2', { state: { id: 1, isPeshe: item.isProfession, isBachelor: item.isBachelors, isMaster: item.isMaster, isPHD: item.isDoctoral } }) };
+        { !item.isEducation && navigate('/stage2', { state: {  isPeshe: item.isProfession, isBachelor: item.isBachelors, isMaster: item.isMaster, isPHD: item.isDoctoral , isSelect: selectValues} }) };
         // console.log(dispatch(updateSelectValue(selectValues)));
         dispatch(updateSelectValue(selectValues));
     }
@@ -100,16 +102,18 @@ const Stage1 = (props) => {
                 <div className={classes.educations__controls}>
                     <div className={classes.education__control_Name}>
                         <Input
-                            value={enteredName}
+                            value={selectValues.name1}
                             label='Ad:'
                             type='text'
-                            changeHandlerText={changeHandlerName}
+                            name='name1'
+                            changeHandlerText={handleChangeConfirm}
                         />
                         <Input
-                            value={enteredLastName}
+                            name='lname'
+                            value={selectValues.lname}
                             label='Soyad:'
                             type='text'
-                            changeHandlerText={changeHandlerLastName}
+                            changeHandlerText={handleChangeConfirm}
                         />
                     </div>
                     <div className={classes.education__control}>

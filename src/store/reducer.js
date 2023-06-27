@@ -1,5 +1,11 @@
 const initialState = {
     selectValues: {
+        num1: '',
+        num2: '',
+        num3: '',
+        num4: '',
+        name1: '',
+        lname: '',
         select1: '',
         select2: '',
         select3: '',
@@ -7,7 +13,7 @@ const initialState = {
         select4: '',
         select5: '',
         select6: '',
-        confirm2: ''
+        confirm2: '',
     },
 };
 
@@ -17,12 +23,12 @@ const reducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
-                selectValues: action.payload, 
+                selectValues: action.payload,
 
             };
         default:
             return state;
-           
+
     }
 };
 

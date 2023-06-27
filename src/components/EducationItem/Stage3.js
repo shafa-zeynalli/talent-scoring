@@ -37,9 +37,9 @@ const Stage3 = (props) => {
 
     const dispatch = useDispatch();
     const [selectValues, setSelectValues] = useState({
-        select4: todo.select1 === '' ? '' : todo.select1,
-        select5: todo.select2 === '' ? '' : todo.select2,
-        select6: todo.select3 === '' ? '' : todo.select3,
+        select4: todo.select4 === '' ? '' : todo.select4,
+        select5: todo.select5 === '' ? '' : todo.select5,
+        select6: todo.select6 === '' ? '' : todo.select6,
         confirm2: todo.confirm2 === '' ? '' : todo.confirm2,
     });
     const handleSelectChange = (e) => {
@@ -73,13 +73,14 @@ const Stage3 = (props) => {
         { value: "biologiya", label: 'Biologiya', name: 'select4' },
         { value: "informatika", label: 'Informatika', name: 'select4' },
     ];
+    
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(updateSelectValue(selectValues));
         console.log(dispatch(updateSelectValue(selectValues)))
         // navigate('/stage2')
     }
-    // const {isData: isProfession} = props;
+     
     return (
         <Card>
             <div className={classes.education}>

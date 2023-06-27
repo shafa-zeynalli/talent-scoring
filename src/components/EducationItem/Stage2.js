@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { updateSelectValue } from '../../store/action';
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button/Button";
@@ -8,34 +10,54 @@ import classes from "./Stage2.module.css";
 import ChartBar from "../Chartbar";
 
 const Stage2 = (props) => {
-  const [enteredProfession, setEnteredProfession] = useState("");
-  const [enteredBachelors, setEnteredBachelors] = useState("");
-  const [enteredMaster, setEnteredMaster] = useState("");
-  const [enteredDoctoral, setEnteredDoctoral] = useState("");
+  // const [enteredProfession, setEnteredProfession] = useState("");
+  // const [enteredBachelors, setEnteredBachelors] = useState("");
+  // const [enteredMaster, setEnteredMaster] = useState("");
+  // const [enteredDoctoral, setEnteredDoctoral] = useState("");
 
-  const changeHandlerProfession = (e) => {
-    setEnteredProfession(e.target.value);
-  };
-  const changeHandlerBachelors = (e) => {
-    setEnteredBachelors(e.target.value);
-  };
-  const changeHandlerMaster = (e) => {
-    setEnteredMaster(e.target.value);
-  };
-  const changeHandlerDoctoral = (e) => {
-    setEnteredDoctoral(e.target.value);
-  };
+  const dispatch = useDispatch();
+  const todo = useSelector((state)=>state.selectValues);
+
+  const [selectData, setSelectData] = useState({
+    num1: todo.num1 === '' ? '' : todo.num1,
+    num2: todo.num2 === '' ? '' : todo.num2,
+    num3: todo.num3 === '' ? '' : todo.num3,
+    num4: todo.num4 === '' ? '' : todo.num4, 
+});
+
+
+
+  // const changeHandlerProfession = (e) => {
+  //   setEnteredProfession(e.target.value);
+  // };
+  // const changeHandlerBachelors = (e) => {
+  //   setEnteredBachelors(e.target.value);
+  // };
+  // const changeHandlerMaster = (e) => {
+  //   setEnteredMaster(e.target.value);
+  // };
+  // const changeHandlerDoctoral = (e) => {
+  //   setEnteredDoctoral(e.target.value);
+  // };
   const navigate = useNavigate();
   const location = useLocation();
+
   const profession = location.state.isPeshe;
   const bachelor = location.state.isBachelor;
   const master = location.state.isMaster;
   const phd = location.state.isPHD;
+  // const selectvalue = location.state.selectValues;
+
+  const handleChangeConfirm = (e) =>{
+    const { name, value } = e.target;
+    setSelectData((prevState) => ({ ...prevState,   [name]: value }));
+  }
 
   // console.log(profession, bachelor, master, phd);
   const submitHandler = (e) => {
     e.preventDefault();
     navigate("/stage3");
+    dispatch(updateSelectValue(selectData));
   };
 
   // const {isData: isProfession} = props;
@@ -49,45 +71,51 @@ const Stage2 = (props) => {
             <div className={classes.educations__controls}>
               {profession && (
                 <Input
-                  value={enteredProfession}
+                  value={selectData.num1}
                   type="number"
+                  max={'50'}
+                  min={'0'}
+                  name='num1'
                   placeholder="0-50"
                   label="Peşə təhsili üzrə TQDK qəbul balınızı qeyd edin."
-                  changeHandlerText={changeHandlerProfession}
+                  changeHandlerText={handleChangeConfirm}
                 />
               )}
               {(phd || master || bachelor) &&
                 (
                   <Input
-                    value={enteredBachelors}
+                    value={selectData.num2}
                     type="number"
                     max={'700'}
                     min={'0'}
+                    name='num2'
                     placeholder="0-700"
                     label="Bakalavr pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                    changeHandlerText={changeHandlerBachelors}
+                    changeHandlerText={handleChangeConfirm}
                   />
                 )}
                 {(phd || master) && 
                 (
                   <Input
-                  value={enteredMaster}
+                  value={selectData.num3}
                   type="number"
                   max={'100'}
                   min={'0'}
+                  name='num3'
                   placeholder="0-100"
                   label="Magistratura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                  changeHandlerText={changeHandlerMaster}
+                  changeHandlerText={handleChangeConfirm}
                 />
                 )}
                 {phd &&  <Input
-                    value={enteredDoctoral}
+                    value={selectData.num4}
                     type="number"
                     placeholder="0-8"
                     max={'8'}
                     min={'0'}
+                    name='num4'
                     label="Doktorantura pilləsi üzrə TQDK qəbul balınızı qeyd edin."
-                    changeHandlerText={changeHandlerDoctoral}
+                    changeHandlerText={handleChangeConfirm}
                   />}
             </div>
 

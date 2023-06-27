@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Input.module.css'
 
 const Input = (props) => {
-    const { value, type, max, min, changeHandlerText, label, placeholder } = props;
+    const { value, name, type, max, min, changeHandlerText, label, placeholder } = props;
 
     return (
         <div className={classes.input}>
@@ -14,6 +14,7 @@ const Input = (props) => {
                 placeholder={placeholder}
                 max={max}
                 min={min}
+                name={name}
             />
         </div>
     )
