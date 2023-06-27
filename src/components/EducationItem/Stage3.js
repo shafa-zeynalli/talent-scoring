@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
@@ -73,6 +73,9 @@ const Stage3 = (props) => {
         { value: "biologiya", label: 'Biologiya', name: 'select4' },
         { value: "informatika", label: 'Informatika', name: 'select4' },
     ];
+    useEffect(()=>{
+        dispatch(updateSelectValue(selectValues));
+      }, [selectValues]);
     
     const submitHandler = (e) => {
         e.preventDefault();

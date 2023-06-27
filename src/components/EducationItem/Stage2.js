@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateSelectValue } from '../../store/action';
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from "react-router-dom";
@@ -52,7 +52,9 @@ const Stage2 = (props) => {
     const { name, value } = e.target;
     setSelectData((prevState) => ({ ...prevState,   [name]: value }));
   }
-
+  useEffect(()=>{
+    dispatch(updateSelectValue(selectData));
+  }, [selectData]);
   // console.log(profession, bachelor, master, phd);
   const submitHandler = (e) => {
     e.preventDefault();
@@ -120,7 +122,7 @@ const Stage2 = (props) => {
             </div>
 
             <div className={classes.buttons}>
-              <Button className={classes.button} onClick={() => navigate('/')}>
+              <Button type="button" className={classes.button} onClick={() => navigate('/')}>
                 Geri
               </Button>
               <Button type="submit">Növbəti </Button>

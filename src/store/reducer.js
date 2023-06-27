@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
-                selectValues: action.payload,
+                selectValues: {...state.selectValues, ...action.payload},
 
             };
         default:
