@@ -28,9 +28,14 @@ const Stage1 = (props) => {
 
 
     const handleSelectChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e;
+        console.log(e)
         setSelectValues((prevState) => ({ ...prevState, [name]: value }));
     };
+    const handleChangeConfirm = (e) =>{
+        const { name, value } = e.target;
+        setSelectValues((prevState) => ({ ...prevState, [name]: value }));
+    }
 
 
     const navigate = useNavigate();
@@ -47,26 +52,26 @@ const Stage1 = (props) => {
     };
 
     const optionsEmployment = [
-        { value: "tehsilli", label: 'Təhsil alıram' },
-        { value: "tehsilsiz", label: 'Təhsil almıram' },
+        { value: "tehsilli", label: 'Təhsil alıram', name: 'select1'},
+        { value: "tehsilsiz", label: 'Təhsil almıram',  name: 'select1'},
     ];
     const optionsEducation = [
-        { value: "orta", label: 'Orta Təhsil' },
-        { value: "peshe", label: 'Peşə Təhsili' },
-        { value: "bakalavr", label: 'Bakalavr' },
-        { value: "magistratura", label: 'Magistratura' },
-        { value: "phd", label: 'PhD' },
+        { value: "orta", label: 'Orta Təhsil',name: 'select2' },
+        { value: "peshe", label: 'Peşə Təhsili',name: 'select2' },
+        { value: "bakalavr", label: 'Bakalavr', name: 'select2' },
+        { value: "magistratura", label: 'Magistratura', name: 'select2' },
+        { value: "phd", label: 'PhD', name: 'select2' },
     ];
     const optionsLevel = [
-        { value: "elaci", label: 'Əlaçı' },
-        { value: "zerbeci", label: 'Zərbəçi ' },
-        { value: "hecbiri", label: 'Heç biri' },
+        { value: "elaci", label: 'Əlaçı', name: 'select3' },
+        { value: "zerbeci", label: 'Zərbəçi ', name: 'select3' },
+        { value: "hecbiri", label: 'Heç biri', name: 'select3' },
     ];
     const optionsEmployment2 = [
-        { value: "tehsilli", label: 'Təhsil alıram' },
-        { value: "calisiram", label: 'Çalışıram' },
-        { value: "issiz", label: 'İşsiz' },
-        { value: "herikisi", label: 'Təhsil alıram və çalışıram' },
+        { value: "tehsilli", label: 'Təhsil alıram', name: 'select1' },
+        { value: "calisiram", label: 'Çalışıram', name: 'select1' },
+        { value: "issiz", label: 'İşsiz', name: 'select1' },
+        { value: "herikisi", label: 'Təhsil alıram və çalışıram', name: 'select1' },
     ]
 
     const employment = selectValues.confirm === 'no' ? optionsEmployment : optionsEmployment2;
@@ -83,7 +88,7 @@ const Stage1 = (props) => {
 
         { (item.isEducation || selectValues.select2 === '') && navigate('/stage3') };
         { !item.isEducation && navigate('/stage2', { state: { id: 1, isPeshe: item.isProfession, isBachelor: item.isBachelors, isMaster: item.isMaster, isPHD: item.isDoctoral } }) };
-        console.log(dispatch(updateSelectValue(selectValues)));
+        // console.log(dispatch(updateSelectValue(selectValues)));
         dispatch(updateSelectValue(selectValues));
     }
 
@@ -116,7 +121,7 @@ const Stage1 = (props) => {
                                 id="beli"
                                 label='Bəli'
                                 confirm={selectValues.confirm === 'yes'}
-                                changeHandlerRadio={handleSelectChange}
+                                changeHandlerRadio={handleChangeConfirm}
                                 style1={{ color: selectValues.confirm === 'yes' ? '#038477' : '#444' }}
                                 style2={{ backgroundColor: selectValues.confirm === 'yes' ? '#038477' : '#f2f6f6', appearance: selectValues.confirm === 'yes' ? 'none' : '' }}
                             />
@@ -126,7 +131,7 @@ const Stage1 = (props) => {
                                 id="xeyr"
                                 label='Xeyr'
                                 confirm={selectValues.confirm === 'no'}
-                                changeHandlerRadio={handleSelectChange}
+                                changeHandlerRadio={handleChangeConfirm}
                                 style1={{ color: selectValues.confirm === 'no' ? '#038477' : '#444' }}
                                 style2={{ backgroundColor: selectValues.confirm === 'yes' ? '#f2f6f6 ' : '#038477', appearance: selectValues.confirm === 'no' ? 'none' : '' }}
                             />
@@ -137,21 +142,21 @@ const Stage1 = (props) => {
                         <div>
                             <Select
                                 label="Hazırda məşğuliyyətiniz:"
-                                value={selectValues.select1}
+                                value1={selectValues.select1}
                                 changeHandlerSelect={handleSelectChange}
                                 options={employment}
                                 name='select1'
                             />
                             <Select
                                 label="Təhsiliniz:"
-                                value={selectValues.select2}
+                                value1={selectValues.select2}
                                 changeHandlerSelect={handleSelectChange}
                                 options={optionsEducation}
                                 name='select2'
                             />
                             <Select
                                 label="Aşağıdakılardan hansı sizə uyğundur?"
-                                value={selectValues.select3}
+                                value1={selectValues.select3}
                                 changeHandlerSelect={handleSelectChange}
                                 options={optionsLevel}
                                 name='select3'

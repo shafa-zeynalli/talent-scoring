@@ -4,56 +4,79 @@ import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import Radio from '../UI/Radio/Radio';
 import classes from './Stage1.module.css';
+import { updateSelectValue } from '../../store/action';
 import Select from '../UI/Select/Select';
 import ChartBar from '../Chartbar';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Stage3 = (props) => {
-    const [enteredSubject, setEnteredSubject] = useState('');
-    const [enteredStage, setEnteredStage] = useState('');
-    const [enteredWin, setEnteredWin] = useState('');
+    // const [enteredSubject, setEnteredSubject] = useState('');
+    // const [enteredStage, setEnteredStage] = useState('');
+    // const [enteredWin, setEnteredWin] = useState('');
 
-    const [topping, setTopping] = useState(null);
+    // const [topping, setTopping] = useState(null);
 
-    const changeHandlerSubject = (e) => {
-        setEnteredSubject(e.target.value);
-    }
-    const changeHandlerStage = (e) => {
-        setEnteredStage(e.target.value);
-    }
-    const changeHandlerWin = (e) => {
-        setEnteredWin(e.target.value);
-    }
+    // const changeHandlerSubject = (e) => {
+    //     setEnteredSubject(e.value);
+    // }
+    // const changeHandlerStage = (e) => {
+    //     setEnteredStage(e.value);
+    // }
+    // const changeHandlerWin = (e) => {
+    //     setEnteredWin(e.value);
+    // }
     const navigate = useNavigate();
 
-    const onOptionChange = (e) => {
-        setTopping(e.target.value);
+    // const onOptionChange = (e) => {
+    //     setTopping(e.target.value);
+        
+    // }
+    const todo = useSelector((state)=>state.selectValues);
+
+    const dispatch = useDispatch();
+    const [selectValues, setSelectValues] = useState({
+        select4: todo.select1 === '' ? '' : todo.select1,
+        select5: todo.select2 === '' ? '' : todo.select2,
+        select6: todo.select3 === '' ? '' : todo.select3,
+        confirm2: todo.confirm2 === '' ? '' : todo.confirm2,
+    });
+    const handleSelectChange = (e) => {
+        const { name, value } = e;
+        console.log(e)
+        setSelectValues((prevState) => ({ ...prevState, [name]: value }));
+    };
+    const handleChangeConfirm = (e) =>{
+        const { name, value } = e.target;
+        setSelectValues((prevState) => ({ ...prevState, [name]: value }));
     }
     const optionsWin = [
-        { value: "Iyer", label: '1-ci yer (Qızıl medal)' },
-        { value: "IIyer", label: '2-ci yer (Gümüş medal)' },
-        { value: "IIIyer", label: '3-cü yer (Bürünc medal)' },
+        { value: "Iyer", label: '1-ci yer (Qızıl medal)', name: 'select6'},
+        { value: "IIyer", label: '2-ci yer (Gümüş medal)', name: 'select6' },
+        { value: "IIIyer", label: '3-cü yer (Bürünc medal)', name: 'select6' },
         { value: "IVyer", label: '4-cü yer' },
     ];
     const optionsStage = [
-        { value: "respublic", label: 'Respublika' },
-        { value: "district", label: 'Rayon' },
-        { value: "region", label: 'Region' },
-        { value: "world", label: 'Dünya' },
+        { value: "respublic", label: 'Respublika', name: 'select5' },
+        { value: "district", label: 'Rayon', name: 'select5' },
+        { value: "region", label: 'Region', name: 'select5' },
+        { value: "world", label: 'Dünya', name: 'select5' },
     ];
     const optionsSubject = [
-        { value: "riyaziyyat", label: 'Riyaziyyat' },
-        { value: "azdili", label: 'Azərbaycan dili və Ədəbiyyat' },
-        { value: "tarix", label: 'Tarix' },
-        { value: "cografiya", label: 'Cografiya' },
-        { value: "fizika", label: 'Fizika' },
-        { value: "kimya", label: 'Kimya' },
-        { value: "biologiya", label: 'Biologiya' },
-        { value: "informatika", label: 'Informatika' },
+        { value: "riyaziyyat", label: 'Riyaziyyat', name: 'select4' },
+        { value: "azdili", label: 'Azərbaycan dili və Ədəbiyyat', name: 'select4' },
+        { value: "tarix", label: 'Tarix', name: 'select4' },
+        { value: "cografiya", label: 'Cografiya', name: 'select4' },
+        { value: "fizika", label: 'Fizika', name: 'select4' },
+        { value: "kimya", label: 'Kimya', name: 'select4' },
+        { value: "biologiya", label: 'Biologiya', name: 'select4' },
+        { value: "informatika", label: 'Informatika', name: 'select4' },
     ];
     const submitHandler = (e) => {
         e.preventDefault();
+        dispatch(updateSelectValue(selectValues));
+        console.log(dispatch(updateSelectValue(selectValues)))
         // navigate('/stage2')
     }
     // const {isData: isProfession} = props;
@@ -68,46 +91,46 @@ const Stage3 = (props) => {
                             <label>Olimpiyada qalibi olmusunuzmu?*</label>
                             <div className={classes.education__control_Name}>
                                 <Radio
-                                    name="topping"
+                                    name="confirm2"
                                     value="yes"
                                     id="beli"
                                     label='Bəli'
-                                    confirm={topping === 'yes'}
-                                    changeHandlerRadio={onOptionChange}
-                                    style1={{ color: topping === 'yes' ? '#038477' : '#444' }}
-                                    style2={{ backgroundColor: topping === 'yes' ? '#038477' : '#f2f6f6', appearance: topping === 'yes' ? 'none' : '' }}
+                                    confirm={selectValues.confirm2 === 'yes'}
+                                    changeHandlerRadio={handleChangeConfirm}
+                                    style1={{ color: selectValues.confirm2 === 'yes' ? '#038477' : '#444' }}
+                                    style2={{ backgroundColor: selectValues.confirm2 === 'yes' ? '#038477' : '#f2f6f6', appearance: selectValues.confirm2 === 'yes' ? 'none' : '' }}
                                 />
                                 <Radio
-                                    name="topping"
+                                    name="confirm2"
                                     value="no"
                                     id="xeyr"
                                     label='Xeyr'
-                                    confirm={topping === 'no'}
-                                    changeHandlerRadio={onOptionChange}
-                                    style1={{ color: topping === topping === 'no' ? '#038477' : '#444' }}
-                                    style2={{ backgroundColor: topping === 'yes' ? '#f2f6f6 ' : '#038477', appearance: topping === 'no' ? 'none' : '' }}
+                                    confirm={selectValues.confirm2 === 'no'}
+                                    changeHandlerRadio={handleChangeConfirm}
+                                    style1={{ color:  selectValues.confirm2 === 'no' ? '#038477' : '#444' }}
+                                    style2={{ backgroundColor: selectValues.confirm2 === 'yes' ? '#f2f6f6 ' : '#038477', appearance: selectValues.confirm2 === 'no' ? 'none' : '' }}
                                 />
 
                             </div>
                         </div>
-                        {topping === 'yes' &&
+                        {(selectValues.confirm2 === 'yes' || selectValues.confirm2 === 'yes')&&
                             <div>
                                 <Select
                                     label="Hansı fənn üzrə olimpiyada qalibi olmusunuz?"
-                                    value={enteredSubject}
-                                    changeHandlerSelect={changeHandlerSubject}
+                                    value1={selectValues.select4}
+                                    changeHandlerSelect={handleSelectChange}
                                     options={optionsSubject}
                                 />
                                 <Select
                                     label="Ən yüksək hansı mərhələ üzrə olimpiada qalibi olmusunuz?"
-                                    value={enteredStage}
-                                    changeHandlerSelect={changeHandlerStage}
+                                    value1={selectValues.select5}
+                                    changeHandlerSelect={handleSelectChange}
                                     options={optionsStage}
                                 />
                                 <Select
                                     label="Neçənci yer əldə etmisiniz?"
-                                    value={enteredWin}
-                                    changeHandlerSelect={changeHandlerWin}
+                                    value1={selectValues.select6}
+                                    changeHandlerSelect={handleSelectChange}
                                     options={optionsWin}
                                 />
                             </div>
