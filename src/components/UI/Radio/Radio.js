@@ -2,9 +2,9 @@ import React from 'react';
 import classes from './Radio.module.css'
 
 const Radio = (props) => {
-    const {style1, style2, id, name, value, changeHandlerRadio, label, confirm} = props;
+    const {style1, style2, id,className, name, value, changeHandlerRadio, label, confirm} = props;
     return (
-        <div className={classes.confirm} style={style1}>
+        <div className={`${classes.confirm} ${className}`} style={style1}>
             <label htmlFor={id}>{label}</label>
             <input
                 type="radio"

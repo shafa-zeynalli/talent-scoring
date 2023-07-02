@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 .confirm {
     box-sizing: border-box;
-    width: 150px;
+    width: 30%;
     height: 36px;
     display: flex;
     flex-direction: row;

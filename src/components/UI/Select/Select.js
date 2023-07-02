@@ -63,20 +63,10 @@ import Select from 'react-select';
 export default function SelectOption(props) {
     const [enteredValue, setEnteredValue] = useState('');
 
-    
-    // const optionsEducation = [
-    //     { value: "orta", label: 'Orta Təhsil' },
-    //     { value: "peshe", label: 'Peşə Təhsili' },
-    //     { value: "bakalavr", label: 'Bakalavr' },
-    //     { value: "magistratura", label: 'Magistratura' },
-    //     { value: "phd", label: 'PhD' },]
+     
 
     const { options, name, changeHandlerSelect, label, value1 } = props;
-    // const changeHandler = (e) => {
-    //     console.log(e.value)
-    //     setEnteredValue(e.value);
-    //     changeHandlerSelect(enteredValue)
-    // }
+    
     const dot = (color = 'transparent') => ({
         alignItems: 'center',
         float: 'right',
@@ -140,10 +130,11 @@ export default function SelectOption(props) {
     }
     return (
 
-        <div style={{ 'width': '550px', 'margin': '30px 0',  }}>
+        <div style={{ 'width': '550px', 'margin': '20px 0',  }}>
             <label style={{ 'paddingBottom': '20px', }}>{label}</label>
             <Select
             {...props}
+            multiple={true}
                 isSearchable={false}
                 placeholder={options[0].label}  
                 onChange={changeHandlerSelect}

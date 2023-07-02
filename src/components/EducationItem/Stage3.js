@@ -81,7 +81,7 @@ const Stage3 = (props) => {
         e.preventDefault();
         dispatch(updateSelectValue(selectValues));
         console.log(dispatch(updateSelectValue(selectValues)))
-        // navigate('/stage2')
+        navigate('/stage4')
     }
      
     return (

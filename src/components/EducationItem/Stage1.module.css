@@ -39,13 +39,18 @@ text-align: left;
 .education__control_Name {
   display: flex;
   flex-direction: row;
+  
   align-items: flex-start;
   width: 90%;
   padding: 0px;
   gap: 20px;
 }
 
-
+.lang__input input{
+  width: 95%;
+  height: 36px;
+  margin-left: 3px ;
+}
 .button {
   left: 50px;
   background: #fff !important;
